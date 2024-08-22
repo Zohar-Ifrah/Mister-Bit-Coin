@@ -6,16 +6,20 @@ import { PageNotFoundComponent } from './cmps/page-not-found/page-not-found.comp
 import { ContactDetailsComponent } from './pages/contact-details/contact-details.component';
 import { ContactEditPageComponent } from './pages/contact-edit-page/contact-edit-page.component';
 import { contactResolver } from './services/contact-resolver.service';
+import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
 
 const routes: Routes = [
   { path: "home", component: HomePageComponent },
   { path: "contact", component: ContactPageComponent },
+  { path: "stats", component: StatisticPageComponent },
   { path: "contact/edit", component: ContactEditPageComponent },
   { path: "contact/:id", component: ContactDetailsComponent },
-  { path: "contact/edit/:id", 
+  {
+    path: "contact/edit/:id",
     component: ContactEditPageComponent,
-   resolve: { contact: contactResolver }, },
-  
+    resolve: { contact: contactResolver },
+  },
+
   // { path: "about", component: HomePageComponent }
   { path: "", pathMatch: "full", redirectTo: "home" },
 
