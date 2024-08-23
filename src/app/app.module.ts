@@ -38,8 +38,7 @@ import { ContactEditPageComponent } from './pages/contact-edit-page/contact-edit
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
-  // providers: [provideHttpClient()],
+  providers: [provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
