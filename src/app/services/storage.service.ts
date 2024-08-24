@@ -1,5 +1,8 @@
 
-function store(key: string, value) {
+function store(key: string, value: {
+  name: string;
+  value: number;
+}[]) {
   localStorage[key] = JSON.stringify(value);
 }
 
