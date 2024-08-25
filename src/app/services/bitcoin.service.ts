@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { storageService } from './storage.service';
 
 @Injectable({
@@ -12,9 +12,13 @@ export class BitcoinService {
 
   constructor(private http: HttpClient) { }
 
-  getRate(coins: Number) {
-    return this.http.get<string>(`https://blockchain.info/tobtc?currency=USD&value=${coins}`)
-    // return 0.00163588
+  getRate(coins: number) {
+    //temp hard-coded
+    const rate = coins * 0.0000156532
+    return of(rate).pipe(
+      map(value => value.toString())
+    )
+    // return this.http.get<string>(`https://blockchain.info/tobtc?currency=USD&value=${coins}`)
   }
 
   getTradeVolume() {

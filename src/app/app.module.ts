@@ -17,6 +17,7 @@ import { HeaderComponent } from './cmps/header/header.component';
 import { PageNotFoundComponent } from './cmps/page-not-found/page-not-found.component';
 import { ContactEditPageComponent } from './pages/contact-edit-page/contact-edit-page.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -39,7 +40,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]
