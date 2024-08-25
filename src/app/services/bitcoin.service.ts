@@ -26,7 +26,7 @@ export class BitcoinService {
     // console.log('data service', data);
 
     if (data) return of(data)
-    return this.http.get<{ values: [{ x: number, y: number }] }>(`https://api.blockchain.info/charts/trade-volume?timespan=5months&format=json&cors=true`)
+    return this.http.get<{ values: [{ x: number, y: number }] }>(`https://api.blockchain.info/charts/trade-volume?timespan=1months&format=json&cors=true`)
       .pipe(map(res => {
         //prepare the data in a way that the chart can render
         const vals = res.values.map(item => { return { name: new Date(item.x * 1000).toLocaleDateString("en-US"), value: item.y } })
