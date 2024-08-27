@@ -10,21 +10,29 @@ import { StatisticPageComponent } from './pages/statistic-page/statistic-page.co
 
 const routes: Routes = [
   { path: "home", component: HomePageComponent },
-  { path: "contact", component: ContactPageComponent },
-  { path: "stats", component: StatisticPageComponent },
-  { path: "contact/edit", component: ContactEditPageComponent },
-  { path: "contact/:id", component: ContactDetailsComponent },
   {
-    path: "contact/edit/:id",
-    component: ContactEditPageComponent,
-    resolve: { contact: contactResolver },
+    path: "contact", component: ContactPageComponent, children: [
+      { path: "edit", component: ContactEditPageComponent },
+      {
+        path: "edit/:id",
+        component: ContactEditPageComponent,
+        resolve: { contact: contactResolver },
+      }
+    ]
   },
-
+  // { path: "contact/edit", component: ContactEditPageComponent },
+  { path: "contact/:id", component: ContactDetailsComponent },
+  // {
+  //   path: "contact/edit/:id",
+  //   component: ContactEditPageComponent,
+  //   resolve: { contact: contactResolver },
+  // },
+  { path: "stats", component: StatisticPageComponent },
   // { path: "about", component: HomePageComponent }
-  { path: "", pathMatch: "full", redirectTo: "home" },
 
+  { path: "", pathMatch: "full", redirectTo: "home" },
   { path: "**", component: PageNotFoundComponent }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
