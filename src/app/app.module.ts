@@ -8,7 +8,7 @@ import { ContactListComponent } from './cmps/contact-list/contact-list.component
 import { ContactPreviewComponent } from './cmps/contact-preview/contact-preview.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ContactFilterComponent } from './cmps/contact-filter/contact-filter.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactDetailsComponent } from './pages/contact-details/contact-details.component';
 import { ChartComponent } from './cmps/chart/chart.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
@@ -43,7 +43,8 @@ import { LoaderComponent } from './cmps/loader/loader.component';
     AppRoutingModule,
     FormsModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]

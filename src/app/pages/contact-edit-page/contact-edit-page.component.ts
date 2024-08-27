@@ -4,6 +4,8 @@ import { Contact } from '../../models/contact.model'
 import { filter, Observable, switchMap } from 'rxjs'
 import { ActivatedRoute, Router } from '@angular/router'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { nameTaken, nonEnglishLetters } from '../../customValidators/contact.validators'
 
 @Component({
   selector: 'contact-edit-page',
@@ -11,14 +13,22 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
   styleUrl: './contact-edit-page.component.scss'
 })
 export class ContactEditPageComponent implements OnInit {
-  contact!: Contact
-  destroyRef = inject(DestroyRef)
+  private destroyRef = inject(DestroyRef)
+  private contactService = inject(ContactService)
+  private router = inject(Router)
+  private route = inject(ActivatedRoute)
+  private fb = inject(FormBuilder)
+  // this.contact = this.contactService.getEmptyContact() as Contact }
+  form!: FormGroup
+  contact: Contact | null = null
 
-  constructor(
-    private contactService: ContactService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) { this.contact = this.contactService.getEmptyContact() as Contact }
+  constructor() {
+    this.form = this.fb.group({
+      name: ['', [Validators.required, nonEnglishLetters], [nameTaken]], // initial value, validators, async validators
+      phone: ['', [Validators.required], []],
+      email: ['', [Validators.required], []]
+    })
+  }
 
   ngOnInit(): void {
     //with resolver
@@ -29,11 +39,13 @@ export class ContactEditPageComponent implements OnInit {
       )
       .subscribe(({ contact }) => {
         this.contact = contact
+        this.form.patchValue(contact)
       })
   }
 
   async onSaveContact() {
-    this.contactService.saveContact(this.contact)
+    const contactToSave = { ...this.contact ,...this.form.value } as Contact
+    this.contactService.saveContact(contactToSave)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => this.router.navigateByUrl('/contact'),
